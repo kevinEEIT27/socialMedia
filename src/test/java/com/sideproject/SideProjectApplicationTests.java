@@ -1,5 +1,6 @@
 package com.sideproject;
 
+import com.sideproject.dao.BookRepository;
 import com.sideproject.dao.TodoDao;
 import com.sideproject.entity.Todo;
 import com.sideproject.service.TodoService;
@@ -8,6 +9,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;

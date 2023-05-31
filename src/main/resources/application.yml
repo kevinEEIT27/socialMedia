@@ -1,18 +1,24 @@
 server:
-  port: 9100 # ????port?
+  port: 8080 # ????port?
 
 spring:
   h2:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:todolist # h2 database ????
+    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_DELAY=-1 # h2 database ????
     driver-class-name: org.h2.Driver # ??driver
     username: sa # database ???
     password:  # database ??
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+  sql:
+    init:
+      encoding: UTF-8
 
 thymeleaf:
   cache: false
