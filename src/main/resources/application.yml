@@ -1,7 +1,10 @@
 server:
-  port: 8080 # ????port?
+  port: 8888
+  # ????port?
 
 spring:
+  application:
+    name: sideProject
   h2:
     console:
       enabled: true
@@ -12,13 +15,20 @@ spring:
     password:  # database ??
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher
+      matching-strategy: ANT_PATH_MATCHER
+  profiles:
+    active: native
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
   sql:
     init:
       encoding: UTF-8
+  cloud:
+    config:
+#      uri: /Users/riversoft/eclipse-workspace/sideProject/
+      uri: http://localhost:8888
+
 
 thymeleaf:
   cache: false
