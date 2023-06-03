@@ -1,15 +1,13 @@
 package com.sideproject;
 
-import com.sideproject.dao.BookRepository;
-import com.sideproject.dao.TodoDao;
-import com.sideproject.entity.Todo;
-import com.sideproject.service.TodoService;
+import com.sideproject.user.dao.UserRepository;
+import com.sideproject.user.entity.User;
+import com.sideproject.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SideProjectApplicationTests {
 
 	@Autowired
-	TodoService todoService;
+	UserService userService;
 
 	@MockBean
-	TodoDao todoDao;
+	UserRepository userRepository;
 
 	@Test
 	void contextLoads() {
@@ -31,51 +29,42 @@ class SideProjectApplicationTests {
 
 	@Test
 	public void whenGetId_ThenSetId() {
-		Todo todo = new Todo();
-		todo.setId(1);
-		Integer expected = 1;
-		Integer actual = todo.getId();
+		User user  = new User();
+		user.setUserID(1L);
+		Long expected = 1L;
+		Long actual = user.getUserID();
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void whenGetTask_ThenSetTask() {
-		Todo todo = new Todo();
-		todo.setTask("洗衣服");
-		String expected = "洗衣服";
-		String actual = todo.getTask();
+		User user  = new User();
+		user.setName("KAO");
+		String expected = "KAo";
+		String actual = user.getName();
 
 		assertEquals(expected, actual);
 	}
 
-	@Test
-	public void whenSetTask_ThenGetTask() {
-		Todo todo = new Todo();
-		todo.setStatus(2);
-		Integer expected = 2;
-		Integer actual = todo.getStatus();
-
-		assertEquals(expected, actual);
-	}
 
 	@Test
 	public void testGetTodos () {
 		// [Arrange] 預期資料
-		List<Todo> expectedTodosList = new ArrayList();
-		Todo todo = new Todo();
-		todo.setId(1);
-		todo.setTask("洗衣服");
-		todo.setStatus(1);
-		expectedTodosList.add(todo);
+		List<User> expectedUsers = new ArrayList();
+		User user  = new User();
+		user.setUserID(1l);
+		user.setName("KAO");
+		user.setEmail("gmail");
+		expectedUsers.add(user);
 
 		// 定義模擬呼叫todoDao.findAll() 要回傳的預設結果
-		Mockito.when(todoDao.findAll()).thenReturn(expectedTodosList);
+		Mockito.when(userService.fineAll()).thenReturn(expectedUsers);
 
 		// [Act]操作todoService.getTodos();
-		Iterable<Todo> actualTodoList = todoService.getTodos();
+		Iterable<User> actualUsers = userService.fineAll();
 
 		// [Assert] 預期與實際的資料
-		assertEquals(expectedTodosList, actualTodoList);
+		assertEquals(expectedUsers, actualUsers);
 	}
 }
