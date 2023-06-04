@@ -5,7 +5,6 @@ import com.sideproject.message.dao.PostRepository;
 import com.sideproject.message.entity.Comment;
 import com.sideproject.message.entity.Post;
 import com.sideproject.security.login.UserIdentity;
-import com.sideproject.user.entity.User;
 import com.sideproject.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -73,10 +71,9 @@ public class MessageController {
 	@PostMapping("/v1/comment/{postId}")
 	public Comment addComment(@PathVariable Long postId, @RequestBody Comment comment) {
 
-
 		comment.setPostID(postId);
 		Post post = postRepository.findByPostID(postId);
-		userService.getUserByUser_id(userIdentity.getId());
+		userService.getUserByUserID(userIdentity.getId());
 		comment.setUserID(userIdentity.getId());
 		// 保存评论到数据库
 		return commentRepository.save(comment);

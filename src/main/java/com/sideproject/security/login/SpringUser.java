@@ -25,8 +25,6 @@ public class SpringUser implements UserDetails {
 	public String mobile() {
 		return user.getMobile();
 	}
-
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;

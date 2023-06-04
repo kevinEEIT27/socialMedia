@@ -1,6 +1,7 @@
 package com.sideproject.common.core.servies;
 
 import com.sideproject.security.login.AuthRequest;
+import com.sideproject.security.login.SpringUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
@@ -28,12 +29,13 @@ public class JWTService {
 		Authentication authentication =
 			new UsernamePasswordAuthenticationToken(request.getMobile(), request.getPassword());
 		authentication = authenticationManager.authenticate(authentication);
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		SpringUser userDetails = (SpringUser) authentication.getPrincipal();
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MINUTE, 2);
 
 		Claims claims = Jwts.claims();
+		claims.put("userID", userDetails.getId());
 		claims.put("username", userDetails.getUsername());
 		claims.put("mobile", userDetails.getUsername());
 		claims.setExpiration(calendar.getTime());

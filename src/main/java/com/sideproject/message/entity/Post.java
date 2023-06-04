@@ -1,5 +1,6 @@
 package com.sideproject.message.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Post extends AbstractMessage {
 
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postID")
+	@JsonIgnore
 	private List<Comment> comments;
 
 }

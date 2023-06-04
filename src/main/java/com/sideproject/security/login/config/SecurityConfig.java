@@ -46,12 +46,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/h2/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/auth").permitAll()
 			.antMatchers(HttpMethod.POST, "/auth/parse").permitAll()
+			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
+			.cors().and()
 			.csrf().disable();
 			http.headers().frameOptions().disable();
 	}
